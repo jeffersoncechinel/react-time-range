@@ -15,7 +15,7 @@ function validRange(startMoment, endMoment, sameIsValid) {
   return startMoment.isBefore(endMoment) ? "lesser" : "greater";
 }
 
-function generateTimeIncrement(minIncrementProp) {
+function generateTimeIncrement(minIncrementProp, fixedLastMinuteIncrement) {
   // Create an array of all possible times that can be selected
   const minuteIncrement = 60 / minIncrementProp;
   let timeArray = [];
@@ -36,6 +36,15 @@ function generateTimeIncrement(minIncrementProp) {
       timeArray.push(time);
     }
   }
+
+  if (fixedLastMinuteIncrement && minIncrementProp > 1) {
+    let lastMinutes = {...timeArray[timeArray.length-1]}
+    lastMinutes.MM = '59'
+    lastMinutes.mm = '59'
+    lastMinutes.value = '2359'
+    timeArray.push(lastMinutes);
+  }
+
   return timeArray;
 }
 
@@ -79,6 +88,16 @@ export function generateTimeObjects(props) {
     props.minuteIncrement
   );
 
+  if (props.fixedLastMinuteIncrement && props.minuteIncrement > 1) {
+    if (startTimeValue === "2400") {
+      startTimeValue = "2359"
+    }
+
+    if (endTimeValue === "2400" && props.minuteIncrement > 1) {
+      endTimeValue = "2359"
+    }
+  }
+
   // Set our moment objects hours and minutes to the rounded time value
   startMomentObject.set("hour", parseInt(startTimeValue.substring(0, 2)));
   startMomentObject.set("minutes", parseInt(startTimeValue.substring(2, 4)));
@@ -106,8 +125,8 @@ export function generateTimeObjects(props) {
   }
 
   // Calculate time increments
-  startTimeIncrement = generateTimeIncrement(props.minuteIncrement);
-  endTimeIncrement = generateTimeIncrement(props.minuteIncrement);
+  startTimeIncrement = generateTimeIncrement(props.minuteIncrement, props.fixedLastMinuteIncrement);
+  endTimeIncrement = generateTimeIncrement(props.minuteIncrement, props.fixedLastMinuteIncrement);
 
   // Return times back to the select object
   return {
