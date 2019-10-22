@@ -2,8 +2,9 @@
   "name": "react-time-range",
   "version": "1.0.4",
   "description": "A flexible time range selector for React",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
+    "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --watch",
     "build": "webpack -p"
