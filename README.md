@@ -43,6 +43,7 @@ Component Props
 | `startMoment` | string | undefined | A moment ISO 8601 time string representing the start time. |
 | `endMoment` | string | undefined | A moment ISO 8601 time string representing the end time. |
 | `minuteIncrement` | Number | 30 | Defines the increments in time that should appear in the drop-down menus. Increments must be one of the following `1, 2, 5, 10, 15, 20, 30, 60` minutes. |
+| `fixedLastMinuteIncrement` | String | "" | Appends a fixed minute value for the last hour of the day in drop-down menus. Values must be from `1 to 59` minutes. |
 | `sameIsValid` | boolean | true | If both the start and end times are the same, this may or may not be considered a valid time range. |
 | `className` | string | undefined | Prop for handling custom styling of the component. |
 | `onClick` | function | undefined | Return function that is called when one of the time drop-down menus is clicked. |
