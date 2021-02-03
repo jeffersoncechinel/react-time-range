@@ -1,6 +1,6 @@
 {
   "name": "react-time-range-adapted",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A flexible time range selector for React",
   "main": "build/index.js",
   "scripts": {
